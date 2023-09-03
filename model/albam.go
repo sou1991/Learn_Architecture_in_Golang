@@ -22,3 +22,15 @@ var albams = []albam{
 func GetAlbums(c *gin.Context){
 	c.IndentedJSON(http.StatusOK, albams)
 }
+func PostAlbums(c *gin.Context){
+	var newAlbums albam
+
+	if err:= c.BindJSON(&newAlbums); err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Bad Request"})
+		return
+	}
+
+	// Add the new album to the slice
+	albams = append(albams, newAlbums)
+	c.IndentedJSON(http.StatusCreated, newAlbums)
+}
