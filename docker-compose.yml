@@ -1,6 +1,6 @@
 version: '3'
 services:
-  golibrary:
+  api:
     image: go_api
     build: 
       context: .
