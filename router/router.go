@@ -6,20 +6,20 @@ import (
 )
 
 type IHandlerAlbumsApi interface{
-	AlbumsApiCall()
+	AlbumsApiCall(...*gin.Engine)
 }
 
 type routerAlubum struct{
 	Iac controller.IAlbumsController
 }
 
-func NewRouter(iac controller.IAlbumsController, c *gin.Context) IHandlerAlbumsApi{
-	return &routerAlubum{Iac: iac, Ctx: c}
+func NewRouter(iac controller.IAlbumsController) IHandlerAlbumsApi{
+	return &routerAlubum{Iac: iac}
 }
 
-func (ra routerAlubum) AlbumsApiCall(r *gin.*Engine){
-	r.GET("/albums", func(c *gin.Context) {
-		ra.Iac.GetAll()
+func (ra routerAlubum) AlbumsApiCall(r ...*gin.Engine){
+	r[0].GET("/albums", func(c *gin.Context) {
+		ra.Iac.GetAll(c)
 	})
 	//r.GET("/albums/:id", model.GetAlbumByID)
 	//r.POST("/albums", model.PostAlbums)

@@ -7,18 +7,18 @@ import (
 
 type IAlbumsController interface {
 	//Create()
-	GetAll()
+	GetAll(...*gin.Context)
 	//GetByID()
 }
 
-func NewAlbumController(ar repository.IAlbumsRepository, c *gin.Context) IAlbumsController{
-	return AlbumController{Ar: ar, Ctx: c}
+func NewAlbumController(ar repository.IAlbumsRepository) IAlbumsController{
+	return AlbumController{Ar: ar}
 }
 
 type AlbumController struct{
 	Ar repository.IAlbumsRepository
 }
 
-func (ac AlbumController) GetAll(){
-	ac.Ar.GetAll()
+func (ac AlbumController) GetAll(c ...*gin.Context){
+	ac.Ar.GetAll(c[0])
 }

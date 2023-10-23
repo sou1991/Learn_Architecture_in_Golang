@@ -6,17 +6,17 @@ import (
 )
 
 type IAlbumsRepository interface{
-	GetAll()
+	GetAll(...*gin.Context)
 }
 
 type AlbumsRepository struct{
 	Conn string
 }
 
-func NewAlbumRepository(c *gin.Context) IAlbumsRepository{
-	return AlbumsRepository{Conn: "postgres", Ctx: c}
+func NewAlbumRepository() IAlbumsRepository{
+	return AlbumsRepository{Conn: "postgres"}
 }
 
-func (AlbumsRepository) GetAll(){
-	entity.GetAlbums()
+func (AlbumsRepository) GetAll(c ...*gin.Context){
+	entity.GetAlbums(c[0])
 }
