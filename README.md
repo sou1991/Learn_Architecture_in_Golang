@@ -1,4 +1,4 @@
-# subject_x_golangs_api_
+# GoでDDD/アーキテクチャを学ぶ
 
 ```
 curl http://localhost:8080/albums \
